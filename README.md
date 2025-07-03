@@ -1,49 +1,17 @@
-# Brain_Tumor_DeepLearning
+=> Loads MRI images from train/, val/, and test/ folders using ImageDataGenerator.
 
-** Brain Tumor Classifier – Code Summary**
+=> Applies data augmentation (rotation, shift, flip, zoom) to training images for better generalization.
 
-1.📁 Loads and Prepares Dataset
+=> Handles class imbalance by computing class_weight so the model doesn't always favor the most common tumor.
 
-Loads MRI images from train/, val/, and test/ folders.
+=> Uses EfficientNetB0 as a pretrained base model (from ImageNet) with a custom classification head.
 
-Applies augmentation (flip, zoom, shift) to training data.
+=> Trains the model using your labeled dataset (4 classes: Glioma, Meningioma, No Tumor, Pituitary).
 
-Uses sparse labels (integer values for classes).
+=> Monitors validation loss and uses early stopping + checkpoint to save the best version.
 
-2.🔄 Uses Transfer Learning (EfficientNetB0)
+=> Evaluates the trained model on the test set to calculate accuracy.
 
-Loads a pretrained EfficientNetB0 model (without its top layers).
+=> Generates a classification report (precision, recall, F1-score) for detected classes.
 
-Freezes the pretrained layers.
-
-Adds a custom classification head for 4 tumor classes.
-
-3.⚙️ Compiles the Model
-
-Loss function: sparse_categorical_crossentropy
-
-Optimizer: Adam
-
-Metric: accuracy
-
-4.🏋️ Trains the Model
-
-Runs training on the dataset for up to 30 epochs.
-
-Uses EarlyStopping to avoid overfitting.
-
-Saves the best model using ModelCheckpoint.
-
-5.✅ Evaluates Performance
-
-Loads the best saved model.
-
-Evaluates on the test set.
-
-Calculates accuracy and confusion matrix.
-
-6.📊 Visualizes Results
-
-Prints precision, recall, and F1-score per class.
-
-Displays a labeled confusion matrix heatmap.
+=> Plots a confusion matrix to visualize prediction correctness per class.
